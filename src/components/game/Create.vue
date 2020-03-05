@@ -54,7 +54,7 @@
   export default {
     name: 'Create',
     components: {
-      Pacman: () => import('../../components/loaders/Pacman'),
+      Pacman: () => import('../loaders/Pacman'),
     },
     data() {
       return {
@@ -107,14 +107,14 @@
 </script>
 
 <style lang="scss" scoped>
-  @import "~bootstrap/scss/functions";
+  @import "../../../node_modules/bootstrap/scss/functions";
   @import "../../assets/styles/variables";
-  @import "~bootstrap/scss/variables";
-  @import "~bootstrap/scss/mixins";
-  @import "~bootstrap/scss/buttons";
-  @import "~bootstrap/scss/card";
-  @import "~bootstrap/scss/forms";
-  @import "~bootstrap/scss/utilities/spacing";
+  @import "../../../node_modules/bootstrap/scss/variables";
+  @import "../../../node_modules/bootstrap/scss/mixins";
+  @import "../../../node_modules/bootstrap/scss/buttons";
+  @import "../../../node_modules/bootstrap/scss/card";
+  @import "../../../node_modules/bootstrap/scss/forms";
+  @import "../../../node_modules/bootstrap/scss/utilities/spacing";
 
   @keyframes slide-bottom {
     0% {

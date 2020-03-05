@@ -1,79 +1,66 @@
 <template>
-  <div class="container mt-5">
-    <h1>Meus jogos</h1>
-    <div class="row">
-      <div class="col-12">
-        <Create/>
-      </div>
-      <div class="col-12 col-md-6 col-lg-4" v-for="game in games" v-bind:key="game.id">
-        <div class="card mb-4 slide-bottom">
-          <div class="card-header">
-            #{{game.id}} {{game.title}}
-          </div>
-          <div class="card-body">
-            <div class="row">
-              <div class="col-12 col-md-6 col-lg-6 col-xl-4 mb-2"
-                   title="Quantidade de jogadore(s) neste jogo">
-                <div class="numbers">
-                  <span class="gg-boy"></span>
-                  <span class="number">{{game.players}}</span>
-                </div>
+  <div class="row">
+    <div class="col-12 col-md-6 col-lg-4" v-for="game in games" v-bind:key="game.id">
+      <div class="card mb-4 slide-bottom">
+        <div class="card-header">
+          #{{game.id}} {{game.title}}
+        </div>
+        <div class="card-body">
+          <div class="row">
+            <div class="col-12 col-md-6 col-lg-6 col-xl-4 mb-2"
+                 title="Quantidade de jogadore(s) neste jogo">
+              <div class="numbers">
+                <span class="gg-boy"></span>
+                <span class="number">{{game.players}}</span>
               </div>
-              <div class="col-12 col-md-6 col-lg-6 col-xl-4 mb-2"
-                   title="Quantidade de medalha(s) neste jogo">
-                <div class="numbers">
-                  <span class="gg-flag"></span>
-                  <span class="number">{{game.medals}}</span>
-                </div>
+            </div>
+            <div class="col-12 col-md-6 col-lg-6 col-xl-4 mb-2"
+                 title="Quantidade de medalha(s) neste jogo">
+              <div class="numbers">
+                <span class="gg-flag"></span>
+                <span class="number">{{game.medals}}</span>
               </div>
-              <div class="col-12 col-md-6 col-lg-6 col-xl-4 mb-2"
-                   title="Quantidade de fase(s) neste jogo">
-                <div class="numbers">
-                  <span class="gg-border-style-dashed"></span>
-                  <span class="number">{{game.phases}}</span>
-                </div>
+            </div>
+            <div class="col-12 col-md-6 col-lg-6 col-xl-4 mb-2"
+                 title="Quantidade de fase(s) neste jogo">
+              <div class="numbers">
+                <span class="gg-border-style-dashed"></span>
+                <span class="number">{{game.phases}}</span>
               </div>
-              <div class="col-12 col-md-6 col-lg-6 col-xl-4 mb-2"
-                   title="Quantidade de ponto(s) neste jogo">
-                <div class="numbers">
-                  <span class="gg-add"></span>
-                  <span class="number">{{game.points}}</span>
-                </div>
+            </div>
+            <div class="col-12 col-md-6 col-lg-6 col-xl-4 mb-2"
+                 title="Quantidade de ponto(s) neste jogo">
+              <div class="numbers">
+                <span class="gg-add"></span>
+                <span class="number">{{game.points}}</span>
               </div>
             </div>
           </div>
         </div>
       </div>
     </div>
-    <!-- Pacman -->
-    <Pacman v-if="waiting"/>
-    <!-- Load -->
-    <div class="mt-5">
-      <button class="btn btn-outline-primary"
-              v-bind:disabled="waiting"
-              v-if="page > 1"
-              @click="getGames"
-      >
-        {{waiting ? 'Carregando...' : 'Carregar +'}}
-      </button>
+    <div class="col-12">
+      <!-- Pacman -->
+      <Pacman v-if="waiting"/>
+      <!-- Load -->
+      <div class="mt-5">
+        <button class="btn btn-outline-primary"
+                v-bind:disabled="waiting"
+                v-if="page > 1"
+                @click="getGames"
+        >
+          {{waiting ? 'Carregando...' : 'Carregar +'}}
+        </button>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
-  function sleep(milliseconds) {
-    const date = Date.now();
-    let currentDate = null;
-    do {
-      currentDate = Date.now();
-    } while (currentDate - date < milliseconds);
-  }
-
   export default {
     name: 'Game',
     components: {
-      Pacman: () => import('../../components/loaders/Pacman'),
-      Create: () => import('./Create') // Lazy Loading a Component ...
+      Pacman: () => import('../loaders/Pacman'),
     },
     data() {
       return {
