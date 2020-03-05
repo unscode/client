@@ -11,15 +11,38 @@
         <form>
           <div class="input-group">
             <div class="input-group-text">Título</div>
-            <input class="form-control" placeholder="O título do jogo"/>
+            <input class="form-control" placeholder="O título do jogo"
+                   v-bind:disabled="disabled"
+                   v-bind:class="{'is-invalid': errors.title}"
+                   v-model="game.title"
+            />
+            <div class="invalid-feedback mb-4" v-if="errors.title">
+              {{errors.title[0]}}
+            </div>
           </div>
-          <div class="mt-3">
-            <button class="btn btn-outline-danger mb-1"
-                    @click.prevent="toggle"
-            >
-              Cancelar
-            </button>
-            <button class="btn btn-primary ml-3">Salvar</button>
+          <div class="input-group">
+            <div class="input-group-text">Descrição</div>
+            <input class="form-control" placeholder="A descrição do jogo"
+                   v-bind:disabled="disabled"
+                   v-bind:class="{'is-invalid': errors.description}"
+                   v-model="game.description"
+            />
+            <div class="invalid-feedback mb-4" v-if="errors.description">
+              {{errors.description[0]}}
+            </div>
+          </div>
+          <div class="mt-4">
+            <Pacman v-if="waiting"/>
+            <div v-if="!waiting">
+              <button class="btn btn-outline-danger mb-1"
+                      @click.prevent="toggle"
+              >
+                Cancelar
+              </button>
+              <button class="btn btn-primary ml-3" @click.prevent="storeGame">
+                Salvar
+              </button>
+            </div>
           </div>
         </form>
       </div>
@@ -30,14 +53,45 @@
 <script>
   export default {
     name: 'Create',
+    components: {
+      Pacman: () => import('../../components/loaders/Pacman'),
+    },
     data() {
       return {
-        creating: false
+        creating: false,
+        disabled: false,
+        waiting: false,
+        game: {
+          title: '',
+          description: ''
+        },
+        errors: {
+          title: false,
+          description: false
+        }
       };
     },
     methods: {
       toggle() {
         this.creating = !this.creating;
+      },
+      storeGame() {
+        this.disabled = this.waiting = true;
+        this.$auth.$http.post('game', this.game)
+          .then((response) => {
+            this.games.push(response.data.data);
+          })
+          .catch((error) => {
+            const response = error.response;
+            if (response.data) {
+              if (response.status === 422 && response.data.errors) {
+                this.errors = error.response.data.errors;
+              }
+            }
+          })
+          .finally(() => {
+            this.disabled = this.waiting = false;
+          });
       }
     }
   };

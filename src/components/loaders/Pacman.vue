@@ -14,7 +14,7 @@
 
 <style lang="scss" scoped>
   $primary-color: white;
-  
+
   @import "../../assets/styles/loaders/animations/pacman.scss";
 
   .middle {
