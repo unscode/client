@@ -20,6 +20,7 @@
         </div>
         <div class="mt-4">
           <h3>Medalha(s)</h3>
+          <medal-search v-bind:g="game"/>
           <div class="row">
             <div class="col-12 col-lg-4 col-xl-4" v-for="medal in game.medals"
                  v-bind:key="medal.id">
@@ -61,6 +62,7 @@
       Update: () => import('./Update'),
 
       // Medals
+      MedalSearch: () => import('./medal/Search'),
       MedalRemove: () => import('./medal/Remove'),
     },
     data() {
