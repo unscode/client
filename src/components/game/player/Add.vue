@@ -1,12 +1,7 @@
 <template>
   <div class="card mb-4" v-bind:class="{pulsate: waiting}">
     <div class="card-body m-0">
-      <img class="image"
-           v-bind:src="medal.url"
-           v-bind:alt="medal.title"
-           v-bind:title="medal.title"
-      >
-      {{medal.title}}
+      {{player.name}}
       <div>
         <button class="btn btn-sm btn-outline-success"
                 @click="add"
@@ -20,13 +15,13 @@
 
 <script>
   export default {
-    name: 'MedalAdd',
+    name: 'PlayerAdd',
     props: {
       g: { // Game
         type: Object,
         required: true
       },
-      m: { // Medal
+      m: { // player
         type: Object,
         required: true
       }
@@ -35,18 +30,18 @@
       return {
         waiting: false,
         game: {},
-        medal: {}
+        player: {}
       };
     },
     methods: {
       add() {
         this.waiting = true;
-        this.$auth.$http.post(`game/${this.game.id}/medal`, this.medal)
+        this.$auth.$http.post(`game/${this.game.id}/player`, this.player)
           .then(response => {
             if (response.data) {
               if (response.data.data) {
-                const medal = response.data.data;
-                this.$set(this.game.medals, medal.id, medal);
+                const player = response.data.data;
+                this.$set(this.game.players, player.id, player);
               }
             }
           })
@@ -59,7 +54,7 @@
     },
     mounted() {
       this.game = this.g;
-      this.medal = this.m;
+      this.player = this.m;
     }
   };
 </script>
@@ -103,12 +98,5 @@
   .pulsate {
     -webkit-animation: pulsate 0.5s ease-in-out infinite both;
     animation: pulsate 0.5s ease-in-out infinite both;
-  }
-
-  .image {
-    margin-right: 10px;
-    width: 50px;
-    height: 50px;
-    display: inline-block;
   }
 </style>

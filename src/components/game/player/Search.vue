@@ -4,15 +4,15 @@
             @click="toggle"
             v-show="!searching"
     >
-      Procurar por medalhas
+      Procurar por jogador
     </button>
     <div class="card p-3" v-show="searching">
       <div class="card-header p-0">
         <form>
           <div class="input-group">
             <input class="form-control"
-                   placeholder="Digite o nome da medalha"
-                   v-model="medal">
+                   placeholder="Digite o nome do jogador"
+                   v-model="player">
             <div class="input-group-append">
               <button class="btn btn-outline-secondary"
                       @click.prevent="search"
@@ -25,8 +25,8 @@
       </div>
       <div class="card-body p-0 pt-2">
         <Pacman v-if="waiting"/>
-        <div v-for="medal in medals" v-bind:key="medal.id">
-          <medal-add v-bind:g="g" v-bind:m="medal"></medal-add>
+        <div v-for="player in players" v-bind:key="player.id">
+          <player-add v-bind:g="g" v-bind:m="player"></player-add>
         </div>
         <button class="btn btn-sm btn-outline-danger mt-2"
                 @click="toggle"
@@ -41,7 +41,7 @@
 
 <script>
   export default {
-    name: 'MedalSearch',
+    name: 'PlayerSearch',
     props: {
       g: { // Game
         type: Object,
@@ -50,15 +50,15 @@
     },
     components: {
       Pacman: () => import('../../loaders/Pacman'),
-      MedalAdd: () => import('./Add')
+      PlayerAdd: () => import('./Add')
     },
     data() {
       return {
         searching: false,
         disabled: false,
         waiting: false,
-        medal: '',
-        medals: []
+        player: '',
+        players: []
       };
     },
     methods: {
@@ -67,11 +67,11 @@
       },
       search() {
         this.waiting = true;
-        this.$auth.$http.get(`medal/search/${this.medal}`)
+        this.$auth.$http.get(`user/player/search/${this.player}`)
           .then(response => {
             if (response.data) {
               if (response.data.data) {
-                this.medals = response.data.data;
+                this.players = response.data.data;
               }
             }
           })
@@ -97,9 +97,4 @@
   @import "~bootstrap/scss/input-group";
   @import "~bootstrap/scss/buttons";
   @import "~bootstrap/scss/utilities/spacing";
-
-  .image {
-    width: 50px;
-    height: 50px;
-  }
 </style>

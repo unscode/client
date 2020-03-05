@@ -18,29 +18,29 @@
             </div>
           </div>
         </div>
+
+        <div class="mt-4">
+          <h3>Jogadore(s)</h3>
+          <player-search v-bind:g="game"/>
+          <div class="row">
+            <div class="col-12 col-lg-4 col-xl-4" v-for="player in game.players"
+                 v-bind:key="player.id">
+              <player-remove v-bind:g="game" v-bind:p="player"/>
+            </div>
+          </div>
+        </div>
+
         <div class="mt-4">
           <h3>Medalha(s)</h3>
           <medal-search v-bind:g="game"/>
           <div class="row">
             <div class="col-12 col-lg-4 col-xl-4" v-for="medal in game.medals"
                  v-bind:key="medal.id">
-              <MedalRemove v-bind:g="game" v-bind:m="medal"/>
+              <medal-remove v-bind:g="game" v-bind:m="medal"/>
             </div>
           </div>
         </div>
-        <div class="mt-4">
-          <h3>Jogadore(s)</h3>
-          <div class="row">
-            <div class="col-12 col-lg-4 col-xl-4" v-for="player in game.players"
-                 v-bind:key="player.id">
-              <div class="card mb-3">
-                <div class="card-body">
-                  {{player.name}}
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+
       </div>
     </div>
     <div class="col-12 col-xl-4">
@@ -64,6 +64,10 @@
       // Medals
       MedalSearch: () => import('./medal/Search'),
       MedalRemove: () => import('./medal/Remove'),
+
+      // Player
+      PlayerSearch: () => import('./player/Search'),
+      PlayerRemove: () => import('./player/Remove'),
     },
     data() {
       return {
