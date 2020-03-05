@@ -1,27 +1,41 @@
 <template>
-  <div class="">
-    <div class="container">
-      <h1>Meus jogos</h1>
-      <i class="gg-spinner" v-if="waiting"></i>
-
-      <div class="row">
-        <div class="col-12">
-          <Create/>
-        </div>
-        <div class="col-12 col-md-4 col-lg-4" v-for="game in games" v-bind:key="game.id">
-          <div class="card mb-4">
-            <div class="card-header">
-              {{game.title}}
-            </div>
-            <div class="card-body">
-              <div class="row">
-
+  <div class="container">
+    <h1>Meus jogos</h1>
+    <div class="row">
+      <div class="col-12">
+        <Create/>
+      </div>
+      <div class="col-12 col-md-6 col-lg-4" v-for="game in games" v-bind:key="game.id">
+        <div class="card mb-4 slide-bottom">
+          <div class="card-header">
+            {{game.title}}
+          </div>
+          <div class="card-body">
+            <div class="row">
+              <div class="col-12 col-md-6 col-lg-6 col-xl-4"
+                   title="Quantidade de jogadore(s) neste jogo">
+                <span class="gg-boy"></span> <span class="number">{{game.players}}</span>
+              </div>
+              <div class="col-12 col-md-6 col-lg-6 col-xl-4"
+                   title="Quantidade de medalha(s) neste jogo">
+                <span class="gg-flag"></span> <span class="number">{{game.medals}}</span>
+              </div>
+              <div class="col-12 col-md-6 col-lg-6 col-xl-4"
+                   title="Quantidade de fase(s) neste jogo">
+                <span class="gg-border-style-dashed"></span> <span
+                class="number">{{game.phases}}</span>
+              </div>
+              <div class="col-12 col-md-6 col-lg-6 col-xl-4"
+                   title="Quantidade de ponto(s) neste jogo">
+                <span class="gg-add"></span> <span class="number">{{game.points}}</span>
               </div>
             </div>
           </div>
         </div>
       </div>
     </div>
+    <!-- Pacman -->
+    <Pacman v-if="waiting"/>
   </div>
 </template>
 
@@ -29,6 +43,7 @@
   export default {
     name: 'Game',
     components: {
+      Pacman: () => import('../../components/loaders/Pacman'),
       Create: () => import('./Create') // Lazy Loading a Component ...
     },
     data() {
@@ -72,44 +87,34 @@
   @import "~bootstrap/scss/card";
   @import "~bootstrap/scss/utilities/spacing";
 
-  .gg-spinner {
-    transform: scale(var(--ggs, 2))
-  }
+  // Icons
+  @import "~css.gg/icons/add.css";
+  @import "~css.gg/icons/boy.css";
+  @import "~css.gg/icons/border-style-dashed.css";
+  @import "~css.gg/icons/flag.css";
 
-  .gg-spinner,
-  .gg-spinner::after,
-  .gg-spinner::before {
-    box-sizing: border-box;
-    position: relative;
-    display: block;
-    width: 20px;
-    height: 20px
-  }
-
-  .gg-spinner::after,
-  .gg-spinner::before {
-    content: "";
-    position: absolute;
-    border-radius: 100px
-  }
-
-  .gg-spinner::before {
-    animation: spinner 1s cubic-bezier(.6, 0, .4, 1) infinite;
-    border: 3px solid transparent;
-    border-top-color: currentColor
-  }
-
-  .gg-spinner::after {
-    border: 3px solid;
-    opacity: .2
-  }
-
-  @keyframes spinner {
+  @keyframes slide-bottom {
     0% {
-      transform: rotate(0deg)
+      transform: translateY(-10px);
     }
-    to {
-      transform: rotate(359deg)
+    100% {
+      transform: translateY(0px);
     }
+  }
+
+  .number {
+    font-size: 16px;
+  }
+
+  .gg-add,
+  .gg-boy,
+  .gg-border-style-dashed,
+  .gg-flag {
+    transform: scale(.6);
+    display: inline-block;
+  }
+
+  .slide-bottom {
+    animation: slide-bottom 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
   }
 </style>
