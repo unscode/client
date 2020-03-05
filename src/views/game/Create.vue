@@ -73,13 +73,22 @@
     },
     methods: {
       toggle() {
+        if (!this.creating) {
+          this.errors = {
+            title: false,
+            description: false
+          };
+        }
         this.creating = !this.creating;
       },
       storeGame() {
         this.disabled = this.waiting = true;
         this.$auth.$http.post('game', this.game)
           .then((response) => {
-            this.games.push(response.data.data);
+            this.game = {
+              title: '',
+              description: ''
+            };
           })
           .catch((error) => {
             const response = error.response;
