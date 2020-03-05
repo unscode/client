@@ -1,13 +1,13 @@
 <template>
-  <div class="mt-3">
-    <button class="btn btn-sm btn-outline-success mb-1 slide-bottom"
-            v-show="!creating"
-            @click="toggle"
+  <div class="mt-3" v-bind:class="{vibrate: destroying}">
+    <button class="btn btn-sm btn-outline-primary mb-1 slide-bottom"
+            v-show="!editing"
+            @click="toggleediting"
     >
-      PONTO +1
+      Editar
     </button>
-    <div class="card slide-bottom" v-show="creating">
-      <div class="card-body">
+    <div class="card slide-bottom" v-show="editing">
+      <div class="card-body p-0">
         <form>
           <div class="row">
             <div class="col-12 col-md-8 col-lg-8 col-xl-8">
@@ -37,19 +37,41 @@
               </div>
             </div>
           </div>
-          <div class="mt-4">
-            <Pacman v-if="waiting"/>
-            <div v-if="!waiting">
-              <button class="btn btn-sm btn-outline-danger mb-1"
-                      @click.prevent="toggle"
+
+          <div class="mt-4" v-show="!deleting">
+            <Pacman v-if="updating"/>
+            <div v-if="!updating">
+              <button class="btn btn-sm btn-outline-secondary"
+                      @click.prevent="toggleediting"
               >
                 Cancelar
               </button>
-              <button class="btn btn-sm btn-primary ml-3" @click.prevent="storeScore">
-                Salvar
+              <button class="btn btn-sm btn-primary ml-md-2 ml-lg-2 ml-xl-2"
+                      @click.prevent="storeScore"
+              >
+                Atualizar
+              </button>
+              <button class="btn btn-sm btn-outline-danger ml-md-3 ml-lg-3 ml-xl-3"
+                      @click.prevent="toggleDeleting"
+              >
+                Remover
               </button>
             </div>
           </div>
+
+          <div class="mt-4" v-show="deleting">
+            <button class="btn btn-sm btn-outline-danger"
+                    @click.prevent="destroyScore"
+            >
+              Sim! quero remover
+            </button>
+            <button class="btn btn-sm btn-outline-secondary ml-md-3 ml-lg-3 ml-xl-3"
+                    @click.prevent="toggleDeleting"
+            >
+              Cancelar
+            </button>
+          </div>
+
         </form>
       </div>
     </div>
@@ -58,21 +80,28 @@
 
 <script>
   export default {
-    name: 'ScoreCreate',
+    name: 'ScoreEdit',
     props: {
       g: { // Game
         type: Object,
         required: true
       },
+      s: { // Score
+        type: Object,
+        required: true,
+      }
     },
     components: {
       Pacman: () => import('../../loaders/Pacman'),
     },
     data() {
       return {
-        creating: false,
+        editing: false,
+        updating: false,
+        deleting: false,
+        destroying: false,
         disabled: false,
-        waiting: false,
+        game: {},
         score: {
           title: '',
           value: ''
@@ -84,19 +113,22 @@
       };
     },
     methods: {
-      toggle() {
-        if (!this.creating) {
+      toggleediting() {
+        if (!this.editing) {
           this.errors = {
             title: false,
             value: false
           };
         }
-        this.creating = !this.creating;
+        this.editing = !this.editing;
+      },
+      toggleDeleting() {
+        this.deleting = !this.deleting;
       },
       storeScore() {
-        this.disabled = this.waiting = true;
+        this.disabled = this.updating = true;
         this.$auth.$http.post(`game/${this.g.id}/score`, this.score)
-          .then((response) => {
+          .then(response => {
             if (response.data) {
               if (response.data.data) {
                 const score = response.data.data;
@@ -109,7 +141,7 @@
               value: ''
             };
           })
-          .catch((error) => {
+          .catch(error => {
             const response = error.response;
             if (response.data) {
               if (response.status === 422 && response.data.errors) {
@@ -118,9 +150,26 @@
             }
           })
           .finally(() => {
-            this.disabled = this.waiting = false;
+            this.disabled = this.updating = false;
           });
-      }
+      },
+      destroyScore() {
+        this.disabled = this.destroying = true;
+        this.$auth.$http.delete(`game/${this.g.id}/score/${this.s.id}`)
+          .then(response => {
+            this.$delete(this.g.scores, this.s.id);
+          })
+          .catch(error => {
+
+          })
+          .finally(() => {
+            this.disabled = this.destroying = false;
+          });
+      },
+    },
+    mounted() {
+      this.game = this.g;
+      this.score = this.s;
     }
   };
 </script>
@@ -136,17 +185,41 @@
   @import "~bootstrap/scss/grid";
   @import "~bootstrap/scss/utilities/spacing";
 
-  @keyframes slide-bottom {
+  /* ----------------------------------------------
+ * Generated by Animista on 2020-3-5 7:34:4
+ * Licensed under FreeBSD License.
+ * See http://animista.net/license for more info.
+ * w: http://animista.net, t: @cssanimista
+ * ---------------------------------------------- */
+
+  /**
+   * ----------------------------------------
+   * animation vibrate-1
+   * ----------------------------------------
+   */
+  @keyframes vibrate {
     0% {
-      transform: translateY(-10px);
+      transform: translate(0);
+    }
+    20% {
+      transform: translate(-2px, 2px);
+    }
+    40% {
+      transform: translate(-2px, -2px);
+    }
+    60% {
+      transform: translate(2px, 2px);
+    }
+    80% {
+      transform: translate(2px, -2px);
     }
     100% {
-      transform: translateY(0px);
+      transform: translate(0);
     }
   }
 
-  .slide-bottom {
-    animation: slide-bottom 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+  .vibrate {
+    animation: vibrate 0.3s linear infinite both;
   }
 </style>
 

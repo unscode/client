@@ -34,6 +34,12 @@
         <div class="mt-4">
           <h3>Ponto(s)</h3>
           <score-create v-bind:g="game"/>
+          <div class="row mt-3">
+            <div class="col-12" v-for="score in game.scores"
+                 v-bind:key="score.id">
+              <score-show v-bind:g="game" v-bind:s="score"/>
+            </div>
+          </div>
         </div>
 
         <div class="mt-4">
@@ -87,6 +93,7 @@
       PlayerRemove: () => import('./player/Remove'),
 
       // Score
+      ScoreShow: () => import('./score/Show'),
       ScoreCreate: () => import('./score/Create'),
     },
     data() {
