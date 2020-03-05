@@ -1,43 +1,45 @@
 <template>
   <div class="row">
     <div class="col-12 col-md-6 col-lg-4" v-for="game in games" v-bind:key="game.id">
-      <div class="card mb-4 slide-bottom">
-        <div class="card-header">
-          #{{game.id}} {{game.title}}
-        </div>
-        <div class="card-body">
-          <div class="row">
-            <div class="col-12 col-md-6 col-lg-6 col-xl-4 mb-2"
-                 title="Quantidade de jogadore(s) neste jogo">
-              <div class="numbers">
-                <span class="gg-boy"></span>
-                <span class="number">{{game.players}}</span>
+      <router-link v-bind:to="{name: 'game.item', params: { game: game.id } }">
+        <div class="card mb-4 slide-bottom">
+          <div class="card-header">
+            #{{game.id}} {{game.title}}
+          </div>
+          <div class="card-body">
+            <div class="row">
+              <div class="col-12 col-md-6 col-lg-6 col-xl-4 mb-2"
+                   title="Quantidade de jogadore(s) neste jogo">
+                <div class="numbers">
+                  <span class="gg-boy"></span>
+                  <span class="number">{{game.players}}</span>
+                </div>
               </div>
-            </div>
-            <div class="col-12 col-md-6 col-lg-6 col-xl-4 mb-2"
-                 title="Quantidade de medalha(s) neste jogo">
-              <div class="numbers">
-                <span class="gg-flag"></span>
-                <span class="number">{{game.medals}}</span>
+              <div class="col-12 col-md-6 col-lg-6 col-xl-4 mb-2"
+                   title="Quantidade de medalha(s) neste jogo">
+                <div class="numbers">
+                  <span class="gg-flag"></span>
+                  <span class="number">{{game.medals}}</span>
+                </div>
               </div>
-            </div>
-            <div class="col-12 col-md-6 col-lg-6 col-xl-4 mb-2"
-                 title="Quantidade de fase(s) neste jogo">
-              <div class="numbers">
-                <span class="gg-border-style-dashed"></span>
-                <span class="number">{{game.phases}}</span>
+              <div class="col-12 col-md-6 col-lg-6 col-xl-4 mb-2"
+                   title="Quantidade de fase(s) neste jogo">
+                <div class="numbers">
+                  <span class="gg-border-style-dashed"></span>
+                  <span class="number">{{game.phases}}</span>
+                </div>
               </div>
-            </div>
-            <div class="col-12 col-md-6 col-lg-6 col-xl-4 mb-2"
-                 title="Quantidade de ponto(s) neste jogo">
-              <div class="numbers">
-                <span class="gg-add"></span>
-                <span class="number">{{game.points}}</span>
+              <div class="col-12 col-md-6 col-lg-6 col-xl-4 mb-2"
+                   title="Quantidade de ponto(s) neste jogo">
+                <div class="numbers">
+                  <span class="gg-add"></span>
+                  <span class="number">{{game.points}}</span>
+                </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
+      </router-link>
     </div>
     <div class="col-12">
       <!-- Pacman -->

@@ -12,13 +12,13 @@ const routes = [
   },
   {
     path: '/game',
-    name: 'game.index',
-    component: () => import(/* webpackChunkName: "game.index" */ '../views/game/Index')
+    name: 'game.all',
+    component: () => import(/* webpackChunkName: "game.all" */ '../views/game/All')
   },
   {
     path: '/game/:game',
-    name: 'game.show',
-    component: () => import(/* webpackChunkName: "game.show" */ '../views/game/Show')
+    name: 'game.item',
+    component: () => import(/* webpackChunkName: "game.item" */ '../views/game/Item')
   },
   {
     path: '/about',

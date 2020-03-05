@@ -1,5 +1,7 @@
 <template>
-  <div></div>
+  <div class="mt-1 mb-1">
+    <div class="card"></div>
+  </div>
 </template>
 
 <script>
@@ -7,17 +9,21 @@
     name: 'Show',
     data() {
       return {
+        waiting: false,
         game: null
       };
     },
     methods: {
       getGame() {
-        this.game = {};
+
       }
+    },
+    mounted() {
+      this.getGame();
     }
   };
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 
 </style>

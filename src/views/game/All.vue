@@ -12,7 +12,7 @@
 
 <script>
   export default {
-    name: 'Index',
+    name: 'All',
     components: {
       Create: () => import('../../components/game/Create'), // Lazy Loading a Component ...
       List: () => import('../../components/game/List') // Lazy Loading a Component ...
