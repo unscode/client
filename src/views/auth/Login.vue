@@ -39,6 +39,7 @@
 <style lang="scss" scoped>
   * {
     box-sizing: border-box;
+    font-family: 'Roboto', sans-serif;
   }
 
   .login {
@@ -84,7 +85,7 @@
         width: 98%;
         height: 98%;
         background: white;
-        border-radius: 10px;
+        border-radius: 25px;
         display: flex;
         justify-content: center;
         align-items: center;

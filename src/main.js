@@ -2,11 +2,14 @@ import Vue from 'vue';
 import axios from 'axios';
 import VueAxios from 'vue-axios';
 import VueAuthenticate from 'vue-authenticate';
-
 import App from './App.vue';
 import './registerServiceWorker';
 import router from './router';
 import store from './store';
+
+// Configurações do Axios
+axios.defaults.baseURL = 'http://gic.unscode.local/api/v1/';
+axios.defaults.headers.common['Access-Control-Allow-Origin'] = '*';
 
 Vue.use(VueAxios, axios);
 Vue.use(VueAuthenticate, {
