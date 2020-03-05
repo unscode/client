@@ -1,13 +1,13 @@
 <template>
-  <div class="mt-5 mb-5">
-    <button class="btn btn-outline-secondary mb-1 slide-bottom"
+  <div class="mt-1 mb-1">
+    <button class="btn btn-sm btn-outline-primary mb-1 slide-bottom"
             v-show="!creating"
             @click="toggle"
     >
-      JOGO +1
+      EDITAR
     </button>
-    <div class="card slide-bottom" v-show="creating">
-      <div class="card-body">
+    <div class="card m-0 p-0 slide-bottom" v-show="creating">
+      <div class="card-body m-0 p-0">
         <form>
           <div class="input-group">
             <div class="input-group-text">Título</div>
@@ -39,8 +39,8 @@
               >
                 Cancelar
               </button>
-              <button class="btn btn-primary ml-3" @click.prevent="storeGame">
-                Salvar
+              <button class="btn btn-primary ml-3" @click.prevent="updateGame">
+                Atualizar
               </button>
             </div>
           </div>
@@ -52,7 +52,13 @@
 
 <script>
   export default {
-    name: 'Create',
+    name: 'Update',
+    props: {
+      g: { // Game
+        type: Object,
+        required: true
+      }
+    },
     components: {
       Pacman: () => import('../loaders/Pacman'),
     },
@@ -81,16 +87,13 @@
         }
         this.creating = !this.creating;
       },
-      storeGame() {
+      updateGame() {
         this.disabled = this.waiting = true;
-        this.$auth.$http.post('game', this.game)
-          .then((response) => {
-            this.game = {
-              title: '',
-              description: ''
-            };
+        this.$auth.$http.put(`game/${this.game.id}`, this.game)
+          .then(response => {
+            this.toggle();
           })
-          .catch((error) => {
+          .catch(error => {
             const response = error.response;
             if (response.data) {
               if (response.status === 422 && response.data.errors) {
@@ -102,6 +105,9 @@
             this.disabled = this.waiting = false;
           });
       }
+    },
+    mounted() {
+      this.game = this.g;
     }
   };
 </script>
