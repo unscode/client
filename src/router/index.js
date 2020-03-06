@@ -21,6 +21,11 @@ const routes = [
     component: () => import(/* webpackChunkName: "game.item" */ '../views/game/Item')
   },
   {
+    path: '/game/:game/player/:player',
+    name: 'game.item.player.item',
+    component: () => import(/* webpackChunkName: "game.item.player.item" */ '../views/game/player/Item')
+  },
+  {
     path: '/about',
     name: 'About',
     // route level code-splitting

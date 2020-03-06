@@ -27,7 +27,7 @@
 
   body {
     padding-top: 150px;
-    padding-bottom: 50px;
+    padding-bottom: 150px;
   }
 
   .card-parabolic-pentagon {

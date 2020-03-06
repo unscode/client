@@ -1,5 +1,5 @@
 <template>
-  <div class="middle">
+  <div class="middle loader-small">
     <div class="loader-inner pacman">
       <div v-for="i in 5" v-bind:key="i"></div>
     </div>
@@ -23,5 +23,9 @@
     .pacman {
       display: inline-block;
     }
+  }
+
+  .loader-small .loader-inner {
+    transform: scale(0.5, 0.5);
   }
 </style>
