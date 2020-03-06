@@ -7,7 +7,7 @@
       <div class="mt-1 mb-1">
         <h2>Detalhe(s) do jogo</h2>
 
-        <div class="card" v-if="!waiting">
+        <div class="card card-liquid-cheese" v-if="!waiting">
           <div class="card-header">
             <h3>{{game.title}}</h3>
             <h4>{{game.description}}</h4>
@@ -16,30 +16,37 @@
           <div class="card-body pt-1 pt-1">
             <div class="row">
               <div class="col-12 col-xl-4">
-                Medalhas(s) {{Object.getOwnPropertyNames(game.medals).length}}
+
+                Medalhas(s) {{ game.medals ? Object.getOwnPropertyNames(game.medals).length : 0 }}
               </div>
               <div class="col-12 col-xl-4">
-                Jogadore(s) {{Object.getOwnPropertyNames(game.players).length}}
+                Jogadore(s) {{ game.players ? Object.getOwnPropertyNames(game.players).length : 0 }}
               </div>
               <div class="col-12 col-xl-4">
-                Ponto(s) {{Object.getOwnPropertyNames(game.scores).length}}
+                Ponto(s) {{ game.scores ? Object.getOwnPropertyNames(game.scores).length : 0 }}
               </div>
               <div class="col-12 mt-4">
-                Fase(s) {{Object.getOwnPropertyNames(game.phases).length}}
+                Fase(s) {{ game.phases ? Object.getOwnPropertyNames(game.phases).length : 0 }}
               </div>
             </div>
           </div>
         </div>
 
         <div class="mt-4">
+
           <h3>Ponto(s)</h3>
+
           <score-create v-bind:g="game"/>
+
           <div class="row mt-3">
-            <div class="col-12" v-for="score in game.scores"
-                 v-bind:key="score.id">
+            <div class="col-12"
+                 v-for="score in game.scores"
+                 v-bind:key="score.id"
+            >
               <score-show v-bind:g="game" v-bind:s="score"/>
             </div>
           </div>
+
         </div>
 
         <div class="mt-4">
@@ -102,7 +109,6 @@
         game: {
           title: '',
           description: '',
-          players: {}
         }
       };
     },

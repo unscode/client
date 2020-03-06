@@ -1,5 +1,5 @@
 <template>
-  <div class="card mb-4" v-bind:class="{vibrate: waiting}">
+  <div class="card card-scattered-forcefields mb-4" v-bind:class="{vibrate: waiting}">
     <div class="card-body">
       <img class="img-thumbnail"
            v-bind:src="medal.url"

@@ -1,11 +1,13 @@
 <template>
-  <div class="card mb-3">
-    <div class="card-body pt-2 pb-2">
-      <div class="row">
-        <div class="col-12 col-md-8 col-lg-8 col-xl-8">{{this.s.title}}</div>
-        <div class="col-12 col-md-4 col-lg-4 col-xl-4">{{this.s.value}}</div>
-        <div class="col-12">
-          <score-edit v-bind:g="g" v-bind:s="s"/>
+  <div ref="score">
+    <div class="card mb-3">
+      <div class="card-body pt-2 pb-2">
+        <div class="row">
+          <div class="col-12 col-md-8 col-lg-8 col-xl-8">{{this.s.title}}</div>
+          <div class="col-12 col-md-4 col-lg-4 col-xl-4">{{this.s.value}}</div>
+          <div class="col-12">
+            <score-edit v-bind:g="g" v-bind:s="s"/>
+          </div>
         </div>
       </div>
     </div>
@@ -13,6 +15,8 @@
 </template>
 
 <script>
+  import { Draggable } from '@shopify/draggable';
+
   export default {
     name: 'ScoreShow',
     props: {
@@ -27,6 +31,16 @@
     },
     components: {
       ScoreEdit: () => import('./Edit')
+    },
+    mounted() {
+      new Draggable(this.$refs.score, {
+        draggable: '.card',
+        mirror: {
+          constrainDimensions: true
+        }
+      })
+        .on('drag:start', () => console.log('drag:start'))
+        .on('drag:over', (e) => console.log(e));
     }
   };
 </script>
@@ -41,4 +55,19 @@
   @import "~bootstrap/scss/forms";
   @import "~bootstrap/scss/grid";
   @import "~bootstrap/scss/utilities/spacing";
+
+  .draggable-container--over,
+  .draggable--over {
+    background: yellow;
+  }
+
+  .draggable--original {
+    display: none !important;
+    cursor: pointer;
+  }
+
+  .draggable-mirror {
+    z-index: 99999;
+    box-shadow: 0 0 5px black;
+  }
 </style>

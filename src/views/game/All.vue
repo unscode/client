@@ -1,12 +1,10 @@
 <template>
-  <div class="container mt-5">
-    <h1>Meus jogos</h1>
-    <div class="row">
-      <div class="col-12">
-        <Create/>
-      </div>
+  <div>
+    <navbar/>
+    <div class="container">
+      <h1 class="title mb-5">Meus jogos</h1>
+      <List/>
     </div>
-    <List/>
   </div>
 </template>
 
@@ -14,7 +12,7 @@
   export default {
     name: 'All',
     components: {
-      Create: () => import('../../components/game/Create'), // Lazy Loading a Component ...
+      Navbar: () => import('../../components/Navbar'), // Lazy Loading a Component ...
       List: () => import('../../components/game/List') // Lazy Loading a Component ...
     }
   };
@@ -27,4 +25,8 @@
   @import "~bootstrap/scss/mixins";
   @import "~bootstrap/scss/grid";
   @import "~bootstrap/scss/utilities/spacing";
+
+  .title {
+
+  }
 </style>

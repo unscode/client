@@ -1,6 +1,9 @@
 <template>
-  <div class="container mt-5">
-    <Show/>
+  <div>
+    <navbar/>
+    <div class="container mt-5">
+      <Show/>
+    </div>
   </div>
 </template>
 
@@ -8,6 +11,7 @@
   export default {
     name: 'Item',
     components: {
+      Navbar: () => import('../../components/Navbar'), // Lazy Loading a Component ...
       Show: () => import('../../components/game/Show'), // Lazy Loading a Component ...
     }
   };

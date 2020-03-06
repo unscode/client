@@ -2,7 +2,7 @@
   <div class="mt-3" v-bind:class="{vibrate: destroying}">
     <button class="btn btn-sm btn-outline-primary mb-1 slide-bottom"
             v-show="!editing"
-            @click="toggleediting"
+            @click="toggleEditing"
     >
       Editar
     </button>
@@ -42,12 +42,12 @@
             <Pacman v-if="updating"/>
             <div v-if="!updating">
               <button class="btn btn-sm btn-outline-secondary"
-                      @click.prevent="toggleediting"
+                      @click.prevent="toggleEditing"
               >
                 Cancelar
               </button>
               <button class="btn btn-sm btn-primary ml-md-2 ml-lg-2 ml-xl-2"
-                      @click.prevent="storeScore"
+                      @click.prevent="updateScore"
               >
                 Atualizar
               </button>
@@ -113,7 +113,7 @@
       };
     },
     methods: {
-      toggleediting() {
+      toggleEditing() {
         if (!this.editing) {
           this.errors = {
             title: false,
@@ -125,17 +125,11 @@
       toggleDeleting() {
         this.deleting = !this.deleting;
       },
-      storeScore() {
+      updateScore() {
         this.disabled = this.updating = true;
-        this.$auth.$http.post(`game/${this.g.id}/score`, this.score)
+        this.$auth.$http.put(`game/${this.g.id}/score/${this.s.id}`, this.score)
           .then(response => {
-            if (response.data) {
-              if (response.data.data) {
-                const score = response.data.data;
-                this.$set(this.g.scores, score.id, score);
-              }
-            }
-            this.toggle();
+            this.toggleEditing();
             this.score = {
               title: '',
               value: ''
