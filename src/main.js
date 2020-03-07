@@ -6,96 +6,10 @@ import App from './App.vue';
 import './registerServiceWorker';
 import router from './router';
 import store from './store';
-
-// Configurações do Axios
-axios.defaults.baseURL = 'http://gic.unscode.com/api/v1/';
-axios.defaults.headers.common['Access-Control-Allow-Origin'] = '*';
+import { auth } from './config';
 
 Vue.use(VueAxios, axios);
-Vue.use(VueAuthenticate, {
-  baseUrl: 'http://gic.unscode.local',
-  tokenPath: 'access_token',
-  tokenName: 'token',
-  tokenPrefix: 'gic',
-  tokenHeader: 'Authorization',
-  tokenType: 'Bearer',
-  loginUrl: '/auth/login',
-  registerUrl: '/auth/register',
-  logoutUrl: null,
-  storageType: 'cookieStorage',
-  storageNamespace: 'gic',
-  /*cookieStorage: {
-    domain: getCookieDomainUrl(),
-    path: '/',
-    secure: true
-  },*/
-  requestDataKey: 'data',
-  responseDataKey: 'data',
-
-  /**
-   * Default request interceptor for Axios library
-   * @context {VueAuthenticate}
-   */
-  bindRequestInterceptor: function ($auth) {
-    const tokenHeader = $auth.options.tokenHeader;
-    $auth.$http.interceptors.request.use((config) => {
-
-      // Gambiarra, hehehe ...
-      if (config.url === 'http://gic.unscode.com/oauth/token') {
-        config.data['grant_type'] = 'authorization_code';
-        config.data['client_secret'] = '7z52qZYM5ydXZ5p90oOSxTlYP7yH2gDoNBwkKWv4';
-        if (config.data.redirectUri) {
-          config.data['redirect_uri'] = config.data.redirectUri;
-          delete config.data['redirectUri'];
-        }
-        if (config.data.clientId) {
-          config.data['client_id'] = config.data.clientId;
-          delete config.data['clientId'];
-        }
-      }
-
-      if ($auth.isAuthenticated()) {
-        config.headers[tokenHeader] = [
-          $auth.options.tokenType, $auth.getToken()
-        ].join(' ');
-      } else {
-        delete config.headers[tokenHeader];
-      }
-      return config;
-    });
-  },
-
-  providers: {
-    oauth2: {
-      name: 'gic',
-      url: 'http://gic.unscode.com/oauth/token',
-      clientId: 3,
-      redirectUri: 'http://localhost:8080/auth/callback',
-      authorizationEndpoint: 'http://gic.unscode.com/oauth/authorize',
-      defaultUrlParams: ['response_type', 'client_id', 'redirect_uri'],
-      requiredUrlParams: null,
-      optionalUrlParams: ['scope'],
-      scope: '*',
-      scopePrefix: null,
-      scopeDelimiter: null,
-      state: null,
-      oauthType: '2.0',
-      popupOptions: {
-        top: 200,
-        left: 100,
-        width: 700,
-        height: 400
-      },
-      responseType: 'code',
-      responseParams: {
-        code: 'code',
-        clientId: 3,
-        redirectUri: 'http://localhost:8080/auth/callback'
-      }
-    }
-  },
-});
-
+Vue.use(VueAuthenticate, auth);
 Vue.config.productionTip = false;
 
 new Vue({
@@ -103,3 +17,17 @@ new Vue({
   store,
   render: (h) => h(App),
 }).$mount('#app');
+
+// Configurações do Axios
+axios.defaults.baseURL = `${process.env.VUE_APP_API_BASE_URL}`;
+axios.defaults.headers.common['Access-Control-Allow-Origin'] = '*';
+// Add a response interceptor
+axios.interceptors.response.use(function (response) {
+  console.log(response);
+  return response;
+}, function (error) {
+  // Any status codes that falls outside the range of 2xx cause this function to trigger
+  // Do something with response error
+  return Promise.reject(error);
+});
+
