@@ -1,6 +1,5 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
-
 Vue.use(Vuex);
 
 export default new Vuex.Store({
@@ -10,24 +9,8 @@ export default new Vuex.Store({
   },
   mutations: {
     isAuthenticated(state, payload) {
-      state.isAuthenticated = payload.isAuthenticated;
+      state.isAuthenticated = payload;
     }
   },
-  actions: {
-    // Perform VueAuthenticate login using Vuex actions
-    login(context, payload) {
-      vueAuth.login(payload.user, payload.requestOptions)
-        .then((response) => {
-          context.commit('isAuthenticated', {
-            isAuthenticated: vueAuth.isAuthenticated()
-          });
-        });
-    }
-  },
-  modules: {},
-  getters: {
-    isAuthenticated() {
-      return this.$auth.isAuthenticated();
-    }
-  }
+  modules: {}
 });
