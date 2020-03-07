@@ -43,7 +43,7 @@ Vue.use(VueAuthenticate, {
       // Gambiarra, hehehe ...
       if (config.url === 'http://gic.unscode.com/oauth/token') {
         config.data['grant_type'] = 'authorization_code';
-        config.data['client_secret'] = 'HcWI2JWzv6IjQM870bGKRNWFAVbgEMDpPD74TW2M';
+        config.data['client_secret'] = '7z52qZYM5ydXZ5p90oOSxTlYP7yH2gDoNBwkKWv4';
         if (config.data.redirectUri) {
           config.data['redirect_uri'] = config.data.redirectUri;
           delete config.data['redirectUri'];
@@ -69,7 +69,7 @@ Vue.use(VueAuthenticate, {
     oauth2: {
       name: 'gic',
       url: 'http://gic.unscode.com/oauth/token',
-      clientId: 4,
+      clientId: 3,
       redirectUri: 'http://localhost:8080/auth/callback',
       authorizationEndpoint: 'http://gic.unscode.com/oauth/authorize',
       defaultUrlParams: ['response_type', 'client_id', 'redirect_uri'],
@@ -89,7 +89,7 @@ Vue.use(VueAuthenticate, {
       responseType: 'code',
       responseParams: {
         code: 'code',
-        clientId: 4,
+        clientId: 3,
         redirectUri: 'http://localhost:8080/auth/callback'
       }
     }
