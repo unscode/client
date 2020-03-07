@@ -28,6 +28,7 @@
   body {
     padding-top: 150px;
     padding-bottom: 150px;
+    overflow-y: scroll;
   }
 
   .card-parabolic-pentagon {
