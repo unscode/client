@@ -8,7 +8,7 @@ import router from './router';
 import store from './store';
 
 // Configurações do Axios
-axios.defaults.baseURL = 'http://gic.unscode.local/api/v1/';
+axios.defaults.baseURL = 'http://gic.unscode.com/api/v1/';
 axios.defaults.headers.common['Access-Control-Allow-Origin'] = '*';
 
 Vue.use(VueAxios, axios);
@@ -41,7 +41,7 @@ Vue.use(VueAuthenticate, {
     $auth.$http.interceptors.request.use((config) => {
 
       // Gambiarra, hehehe ...
-      if (config.url === 'http://gic.unscode.local/oauth/token') {
+      if (config.url === 'http://gic.unscode.com/oauth/token') {
         config.data['grant_type'] = 'authorization_code';
         config.data['client_secret'] = 'HcWI2JWzv6IjQM870bGKRNWFAVbgEMDpPD74TW2M';
         if (config.data.redirectUri) {
@@ -68,10 +68,10 @@ Vue.use(VueAuthenticate, {
   providers: {
     oauth2: {
       name: 'gic',
-      url: 'http://gic.unscode.local/oauth/token',
+      url: 'http://gic.unscode.com/oauth/token',
       clientId: 4,
       redirectUri: 'http://localhost:8080/auth/callback',
-      authorizationEndpoint: 'http://gic.unscode.local/oauth/authorize',
+      authorizationEndpoint: 'http://gic.unscode.com/oauth/authorize',
       defaultUrlParams: ['response_type', 'client_id', 'redirect_uri'],
       requiredUrlParams: null,
       optionalUrlParams: ['scope'],

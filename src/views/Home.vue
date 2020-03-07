@@ -7,10 +7,6 @@
   </div>
 </template>
 
-<style lang="scss">
-  @import "../assets/styles/app";
-</style>
-
 <script>
   // @ is an alias to /src
   import Navbar from '../components/Navbar';
@@ -24,3 +20,12 @@
     },
   };
 </script>
+
+<style lang="scss" scoped>
+  @import "~bootstrap/scss/functions";
+  @import "../assets/styles/variables";
+  @import "~bootstrap/scss/variables";
+  @import "~bootstrap/scss/mixins";
+  @import "~bootstrap/scss/buttons";
+  @import "~bootstrap/scss/grid";
+</style>
