@@ -30,6 +30,7 @@
         this.$auth.authenticate(provider)
           .then((response) => {
             this.$store.commit('isAuthenticated', this.$auth.isAuthenticated());
+            window.location.replace('/');
           })
           .catch(e => {
 
@@ -110,10 +111,12 @@
             };
             font-weight: bold;
             font-size: 3rem;
+            color: black;
           }
 
           .message {
             margin: 0 10% 40px 10%;
+            color: black;
           }
 
           .auth {

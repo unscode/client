@@ -22,11 +22,11 @@ new Vue({
 axios.defaults.baseURL = `${process.env.VUE_APP_API_BASE_URL}`;
 axios.defaults.headers.common['Access-Control-Allow-Origin'] = '*';
 // Add a response interceptor
-axios.interceptors.response.use(function (response) {
+/*axios.interceptors.response.use(function (response) {
   return response;
 }, function (error) {
   // Any status codes that falls outside the range of 2xx cause this function to trigger
   // Do something with response error
   return Promise.reject(error);
-});
+});*/
 

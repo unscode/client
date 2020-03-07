@@ -47,6 +47,17 @@ export default {
       }
       return config;
     });
+    // Response
+    this.$http.interceptors.response.use((response) => {
+      if (response.status === 401) {
+        console.log('unauthorized, logging out ...');
+        window.location.replace('/login');
+      }
+      return response;
+    });
+  },
+  bindResponseInterceptor: function () {
+
   },
 
   providers: {
