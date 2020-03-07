@@ -23,13 +23,12 @@ export default {
    * @context {VueAuthenticate}
    */
   bindRequestInterceptor: function ($auth) {
-    console.log(process.env);
     const tokenHeader = $auth.options.tokenHeader;
     $auth.$http.interceptors.request.use((config) => {
       // Gambiarra, hehehe ...
       if (config.url === `${process.env.VUE_APP_AUTHORIZATION_BASE_URL}/oauth/token`) {
-        config.data['grant_type'] = 'VUE_APP_AUTHORIZATION_code';
-        config.data['client_secret'] = '7z52qZYM5ydXZ5p90oOSxTlYP7yH2gDoNBwkKWv4';
+        config.data['grant_type'] = 'authorization_code';
+        config.data['client_secret'] = process.env.VUE_APP_AUTHORIZATION_CLIENT_SECRET;
         if (config.data.redirectUri) {
           config.data['redirect_uri'] = config.data.redirectUri;
           delete config.data['redirectUri'];
@@ -39,7 +38,6 @@ export default {
           delete config.data['clientId'];
         }
       }
-
       if ($auth.isAuthenticated()) {
         config.headers[tokenHeader] = [
           $auth.options.tokenType, $auth.getToken()
@@ -56,7 +54,7 @@ export default {
       name: 'gic',
       url: `${process.env.VUE_APP_AUTHORIZATION_BASE_URL}/oauth/token`,
       clientId: process.env.VUE_APP_AUTHORIZATION_CLIENT_ID,
-      redirectUri: `${process.env.VUE_APP_AUTHORIZATION_BASE_URL}/auth/callback`,
+      redirectUri: process.env.VUE_APP_AUTHORIZATION_REDIRECT_URI,
       authorizationEndpoint: `${process.env.VUE_APP_AUTHORIZATION_BASE_URL}/oauth/authorize`,
       defaultUrlParams: ['response_type', 'client_id', 'redirect_uri'],
       requiredUrlParams: null,
