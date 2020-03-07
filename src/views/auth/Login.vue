@@ -28,9 +28,12 @@
     methods: {
       authenticate: function (provider) {
         this.$auth.authenticate(provider)
-          .then(() => {
-            console.log(this.$auth.isAuthenticated());
-          });
+          .then((response) => {
+            this.$store.commit('isAuthenticated', this.$auth.isAuthenticated());
+          })
+          .catch(e => {
+
+          })
       }
     }
   };
