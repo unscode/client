@@ -2,6 +2,7 @@ import Vue from 'vue';
 import axios from 'axios';
 import VueAxios from 'vue-axios';
 import VueAuthenticate from 'vue-authenticate';
+import { Snackbar, Toast } from 'buefy';
 import App from './App.vue';
 import './registerServiceWorker';
 import router from './router';
@@ -9,6 +10,8 @@ import store from './store';
 import { auth } from './config';
 
 Vue.use(VueAxios, axios);
+Vue.use(Snackbar);
+Vue.use(Toast);
 Vue.use(VueAuthenticate, auth);
 Vue.config.productionTip = false;
 

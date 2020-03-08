@@ -16,6 +16,10 @@
           <div class="card-body">
             <h5>Atribuída a {{medal.games}} jogo(s)</h5>
             <h5>Atríbuída a {{medal.players}} jogadore(s)</h5>
+            <remove
+              v-bind:medals="medals"
+              v-bind:medal="medal"
+            />
           </div>
         </div>
       </router-link>
@@ -42,7 +46,8 @@
     name: 'List',
     components: {
       Pacman: () => import('../loaders/Pacman'),
-      Create: () => import('../../components/medal/Create')
+      Create: () => import('../../components/medal/Create'),
+      Remove: () => import('../../components/medal/Remove')
     },
     data() {
       return {
