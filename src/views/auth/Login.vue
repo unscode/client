@@ -4,12 +4,8 @@
     <div class="content">
       <div class="box">
         <div class="middle">
-          <img class="brand" src="../../assets/illustrations/brand2.svg" alt="Brand"/>
+          <img class="brand" src="../../assets/svg/019-lightbulb.svg" alt="Brand"/>
           <h1 class="welcome">Welcome</h1>
-          <p class="message">
-            Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet. Lorem ipsum
-            dolor sit amet.
-          </p>
           <button class="auth" @click="authenticate('oauth2')">
             Login
           </button>
@@ -122,7 +118,7 @@
           .auth {
             display: inline-block;
             line-height: 1.5;
-            color: white;
+            color: #f7be33;
             text-align: center;
             vertical-align: middle;
             cursor: pointer;
