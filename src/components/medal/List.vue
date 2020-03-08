@@ -1,41 +1,44 @@
 <template>
-  <div class="row">
-    <div class="col-12 col-md-6 col-lg-4 mb-5">
-      <create/>
-    </div>
-    <div class="col-12 col-md-6 col-lg-4 mb-5" v-for="medal in medals" v-bind:key="medal.id">
-      <router-link v-bind:to="{name: 'medal.item', params: { medal: medal.id } }">
-        <div class="card mb-4 slide-bottom">
-          <div class="card-header">
-            <img class="image"
-                 v-bind:src="medal.url"
-                 v-bind:alt="medal.title"
-                 v-bind:title="medal.title"/>
-            <h4 class="title">{{medal.title}}</h4>
+  <div>
+    <pacman v-if="waiting"/>
+    <div class="row">
+      <div class="col-12 col-md-6 col-lg-4 mb-5">
+        <create/>
+      </div>
+      <div class="col-12 col-md-6 col-lg-4 mb-5"
+           v-for="medal in medals"
+           v-bind:key="medal.id"
+      >
+        <router-link v-bind:to="{name: 'medal.item', params: { medal: medal.id } }">
+          <div class="card mb-4 fade-in">
+            <div class="card-header">
+              <img class="image"
+                   v-bind:src="medal.url"
+                   v-bind:alt="medal.title"
+                   v-bind:title="medal.title"/>
+              <h4 class="title">{{medal.title}}</h4>
+            </div>
+            <div class="card-body">
+              <h5>Atribuída a {{medal.games}} jogo(s)</h5>
+              <h5>Atríbuída a {{medal.players}} jogadore(s)</h5>
+              <remove
+                v-bind:medalId="medal.id"
+              />
+            </div>
           </div>
-          <div class="card-body">
-            <h5>Atribuída a {{medal.games}} jogo(s)</h5>
-            <h5>Atríbuída a {{medal.players}} jogadore(s)</h5>
-            <remove
-              v-bind:medals="medals"
-              v-bind:medal="medal"
-            />
-          </div>
+        </router-link>
+      </div>
+      <div class="col-12">
+        <!-- Load -->
+        <div class="load mt-5">
+          <button class="btn btn-lg btn-outline-primary"
+                  v-bind:disabled="waiting"
+                  v-if="page > 1"
+                  @click="getMedals"
+          >
+            {{waiting ? 'Carregando...' : 'Carregar +'}}
+          </button>
         </div>
-      </router-link>
-    </div>
-    <div class="col-12">
-      <!-- Pacman -->
-      <Pacman v-if="waiting"/>
-      <!-- Load -->
-      <div class="mt-5">
-        <button class="btn btn-lg btn-outline-primary"
-                v-bind:disabled="waiting"
-                v-if="page > 1"
-                @click="getMedals"
-        >
-          {{waiting ? 'Carregando...' : 'Carregar +'}}
-        </button>
       </div>
     </div>
   </div>
@@ -53,7 +56,6 @@
       return {
         waiting: false,
         page: 1,
-        medals: []
       };
     },
     methods: {
@@ -77,6 +79,8 @@
               }
             }
 
+            this.$store.commit('medals', medals);
+
             this.page++;
           })
           .catch((error) => {
@@ -84,6 +88,11 @@
           .finally(() => {
             this.waiting = false;
           });
+      }
+    },
+    computed: {
+      medals() {
+        return this.$store.state.medals;
       }
     },
     mounted() {
@@ -101,6 +110,8 @@
   @import "~bootstrap/scss/card";
   @import "~bootstrap/scss/buttons";
   @import "~bootstrap/scss/utilities/spacing";
+
+  @import "../../assets/styles/animations";
 
   .image {
     margin-bottom: 10px;
@@ -125,5 +136,9 @@
     &-body {
       color: white;
     }
+  }
+
+  .load {
+    text-align: center;
   }
 </style>

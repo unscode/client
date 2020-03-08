@@ -142,6 +142,11 @@
               description: false,
               image: false
             };
+            if (response.data) {
+              if (response.data.data) {
+                this.$store.commit('insertMedal', response.data.data);
+              }
+            }
           })
           .catch((error) => {
             const response = error.response;

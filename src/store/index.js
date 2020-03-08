@@ -17,11 +17,28 @@ export default new Vuex.Store({
   state: {
     isOffline: false,
     isAuthenticated: false,
+    medals: [] // Medalha(s)
+  },
+  getters: {
+    findMedalsById: state => id => {
+      return state.medals.find(medal => medal.id === id);
+    },
   },
   mutations: {
     isAuthenticated(state, payload) {
       state.isAuthenticated = payload;
-    }
+    },
+    medals(state, payload) {
+      state.medals = payload;
+    },
+    insertMedal(state, medal) {
+      state.medals.splice(0, 0, medal);
+    },
+    deleteMedalsById(state, medalId) {
+      let index = state.medals.findIndex(medal => medal.id === medalId);
+      console.log(index);
+      state.medals.splice(index, 1);
+    },
   },
   modules: {},
   plugins: [vuexLocalStorage.plugin],

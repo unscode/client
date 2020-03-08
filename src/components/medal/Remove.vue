@@ -6,7 +6,7 @@
     >
       Remover
     </button>
-    <button class="btn btn-sm btn-block btn-danger"
+    <button class="btn btn-sm btn-block btn-danger shake-horizontal"
             v-if="remove"
             v-bind:disabled="disabled"
             @click.prevent="destroy"
@@ -29,12 +29,8 @@
   export default {
     name: 'Remove',
     props: {
-      medals: {
-        type: Array,
-        required: true,
-      },
-      medal: { // Medal
-        type: Object,
+      medalId: { // Medal
+        type: Number,
         required: true,
       },
     },
@@ -54,9 +50,9 @@
       },
       destroy() {
         this.waiting = this.disabled = true;
-        this.$auth.$http.delete(`medal/${this.medal.id}`)
+        this.$auth.$http.delete(`medal/${this.medalId}`)
           .then((response) => {
-            this.$delete(this.medals, this.medal);
+            this.$store.commit('deleteMedalsById', this.medalId);
           })
           .catch((error) => {
             if (error.response.data) {
@@ -97,4 +93,6 @@
   @import "~bootstrap/scss/mixins";
   @import "~bootstrap/scss/buttons";
   @import "~bootstrap/scss/utilities/spacing";
+
+  @import "../../assets/styles/animations";
 </style>

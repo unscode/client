@@ -24,4 +24,5 @@
   @import "~bootstrap/scss/variables";
   @import "~bootstrap/scss/mixins";
   @import "~bootstrap/scss/grid";
+  @import "~bootstrap/scss/utilities/spacing";
 </style>
