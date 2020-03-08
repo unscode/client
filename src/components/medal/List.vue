@@ -1,7 +1,7 @@
 <template>
   <div class="row">
     <div class="col-12 col-md-6 col-lg-4 mb-5">
-
+      <create/>
     </div>
     <div class="col-12 col-md-6 col-lg-4 mb-5" v-for="medal in medals" v-bind:key="medal.id">
       <router-link v-bind:to="{name: 'medal.item', params: { medal: medal.id } }">
@@ -42,6 +42,7 @@
     name: 'List',
     components: {
       Pacman: () => import('../loaders/Pacman'),
+      Create: () => import('../../components/medal/Create')
     },
     data() {
       return {
