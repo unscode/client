@@ -4,14 +4,21 @@
     <div class="content">
       <div class="box">
         <div class="middle">
-          <img class="brand" src="../../assets/svg/019-lightbulb.svg" alt="Brand"/>
-          <h1 class="welcome">Welcome</h1>
-          <button class="auth" @click="authenticate('oauth2')">
-            Login
-          </button>
-          <p class="access">
-            Ainda não possui um conta? <a href="#" target="_blank">Cadastre-se</a>.
-          </p>
+          <img class="brand"
+               src="../../assets/svg/019-lightbulb.svg"
+               alt="Brand"
+               v-bind:class="{'rotate-vert-center': waiting}"
+          />
+          <p v-if="waiting">Obtendo informações do usuário ...</p>
+          <div v-if="!waiting">
+            <h1 class="welcome">Welcome</h1>
+            <button class="auth" @click="authenticate('oauth2')">
+              Login
+            </button>
+            <p class="access">
+              Ainda não possui um conta? <a href="#" target="_blank">Cadastre-se</a>.
+            </p>
+          </div>
         </div>
       </div>
     </div>
@@ -21,12 +28,39 @@
 <script>
   export default {
     name: 'Login',
+    data() {
+      return {
+        waiting: false
+      };
+    },
     methods: {
+      getProfile: function () {
+        this.$auth.$http.get('/profile', {
+          transformRequest: [
+            (data, headers) => {
+              this.waiting = true;
+              return data;
+            },
+          ],
+        })
+          .then(response => {
+            let { data } = response.data;
+            if (data) this.$store.commit('user', data);
+            window.location.replace('/');
+          })
+          .finally(() => {
+            this.waiting = false;
+          });
+      },
       authenticate: function (provider) {
         this.$auth.authenticate(provider)
-          .then((response) => {
+          .then(response => {
             this.$store.commit('isAuthenticated', this.$auth.isAuthenticated());
-            window.location.replace('/');
+            if (!this.$auth.isAuthenticated()) {
+              window.location.replace('/login');
+              return;
+            }
+            this.getProfile();
           });
       }
     }
@@ -35,6 +69,7 @@
 
 <style lang="scss" scoped>
   @import "../../assets/styles/variables";
+  @import "../../assets/styles/animations";
 
   @keyframes bg {
     25% {

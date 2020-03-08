@@ -16,8 +16,9 @@ const vuexLocalStorage = new VuexPersist({
 export default new Vuex.Store({
   state: {
     isOffline: false,
+    user: {},
     isAuthenticated: false,
-    medals: [] // Medalha(s)
+    medals: []
   },
   getters: {
     findMedalsById: state => id => {
@@ -28,6 +29,10 @@ export default new Vuex.Store({
     isAuthenticated(state, payload) {
       state.isAuthenticated = payload;
     },
+    user(state, user) {
+      state.user = user;
+    },
+    // Medals
     medals(state, payload) {
       state.medals = payload;
     },
@@ -36,9 +41,11 @@ export default new Vuex.Store({
     },
     deleteMedalsById(state, medalId) {
       let index = state.medals.findIndex(medal => medal.id === medalId);
-      console.log(index);
-      state.medals.splice(index, 1);
+      if (index) {
+        state.medals.splice(index, 1);
+      }
     },
+    // Games
   },
   modules: {},
   plugins: [vuexLocalStorage.plugin],

@@ -27,7 +27,7 @@
            v-bind:class="{'bounce-top': waiting}"
         >
         </i>
-        <b>{{name}}</b>
+        <b class="racking-in-expand" v-if="name">{{name}}</b>
       </span>
     </span>
   </nav>
@@ -39,7 +39,7 @@
     data() {
       return {
         waiting: false,
-        name: '',
+        name: false,
       };
     },
     methods: {
