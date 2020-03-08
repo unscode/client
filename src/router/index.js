@@ -1,5 +1,6 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
+import multiguard from 'vue-router-multiguard';
 import Home from '../views/Home.vue';
 import store from '../store';
 
@@ -13,12 +14,14 @@ const ifAuthenticated = (to, from, next) => {
   next('/login');
 };
 
-const ifNotAuthenticated = (to, from, next) => {
-  if (!store.state.isAuthenticated) {
-    next();
-    return;
+const canManage = (to, from, next) => {
+  if (store.state.user) {
+    if (store.state.user.is_administrator || store.state.user.is_design) {
+      next();
+      return;
+    }
   }
-  next('/');
+  next('player');
 };
 
 const routes = [
@@ -26,37 +29,37 @@ const routes = [
     path: '/',
     name: 'Home',
     component: Home,
-    beforeEnter: ifAuthenticated,
+    beforeEnter: multiguard([ifAuthenticated, canManage]),
   },
   {
     path: '/game',
     name: 'game.all',
     component: () => import(/* webpackChunkName: "game.all" */ '../views/game/All'),
-    beforeEnter: ifAuthenticated,
+    beforeEnter: multiguard([ifAuthenticated, canManage]),
   },
   {
     path: '/game/:game',
     name: 'game.item',
     component: () => import(/* webpackChunkName: "game.item" */ '../views/game/Item'),
-    beforeEnter: ifAuthenticated,
+    beforeEnter: multiguard([ifAuthenticated, canManage]),
   },
   {
     path: '/game/:game/player/:player',
     name: 'game.item.player.item',
     component: () => import(/* webpackChunkName: "game.item.player.item" */ '../views/game/player/Item'),
-    beforeEnter: ifAuthenticated,
+    beforeEnter: multiguard([ifAuthenticated, canManage]),
   },
   {
     path: '/medal',
     name: 'medal.all',
     component: () => import(/* webpackChunkName: "medal.all" */ '../views/medal/All'),
-    beforeEnter: ifAuthenticated,
+    beforeEnter: multiguard([ifAuthenticated, canManage]),
   },
   {
     path: '/medal/:medal',
     name: 'medal.item',
     component: () => import(/* webpackChunkName: "medal.all" */ '../views/medal/Item'),
-    beforeEnter: ifAuthenticated,
+    beforeEnter: multiguard([ifAuthenticated, canManage]),
   },
   {
     path: '/about',
