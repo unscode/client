@@ -16,7 +16,7 @@
           </div>
           <div class="row">
             <div class="col-12 col-lg-6 col-xl-6 mt-4">
-              <router-link class="navbar-brand" to="/game">
+              <router-link to="/game">
                 <div class="card">
                   <div class="card-body">
                     <img class="alphabet" src="../assets/svg/education/001-alphabet.svg"/>
@@ -26,12 +26,14 @@
               </router-link>
             </div>
             <div class="col-12 col-lg-6 col-xl-6 mt-4">
-              <div class="card">
-                <div class="card-body">
-                  <img class="alphabet" src="../assets/svg/education/011-diploma.svg"/>
-                  Medalha(s)
+              <router-link to="/medal">
+                <div class="card">
+                  <div class="card-body">
+                    <img class="alphabet" src="../assets/svg/education/011-diploma.svg"/>
+                    Medalha(s)
+                  </div>
                 </div>
-              </div>
+              </router-link>
             </div>
           </div>
         </div>

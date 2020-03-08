@@ -36,6 +36,18 @@
 <style lang="scss" scoped>
   @import "../../assets/styles/variables";
 
+  @keyframes bg {
+    25% {
+      background: #77c8d0;
+    }
+    50% {
+      background: #f7be33;
+    }
+    75% {
+      background: #ec5898;
+    }
+  }
+
   * {
     box-sizing: border-box;
     font-family: 'Roboto', sans-serif;
@@ -88,6 +100,13 @@
         display: flex;
         justify-content: center;
         align-items: center;
+
+        animation-name: bg;
+        animation-duration: 20s;
+        animation-direction: alternate;
+        animation-fill-mode: both;
+        animation-iteration-count: infinite;
+        animation-timing-function: ease-in-out;
 
         .middle {
           text-align: center;

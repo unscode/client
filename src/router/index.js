@@ -47,6 +47,12 @@ const routes = [
     beforeEnter: ifAuthenticated,
   },
   {
+    path: '/medal',
+    name: 'medal.all',
+    component: () => import(/* webpackChunkName: "medal.all" */ '../views/medal/All'),
+    beforeEnter: ifAuthenticated,
+  },
+  {
     path: '/about',
     name: 'About',
     // route level code-splitting
