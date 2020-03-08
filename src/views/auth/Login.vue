@@ -9,7 +9,7 @@
           <button class="auth" @click="authenticate('oauth2')">
             Login
           </button>
-          <p>
+          <p class="access">
             Ainda não possui um conta? <a href="#" target="_blank">Cadastre-se</a>.
           </p>
         </div>
@@ -27,16 +27,15 @@
           .then((response) => {
             this.$store.commit('isAuthenticated', this.$auth.isAuthenticated());
             window.location.replace('/');
-          })
-          .catch(e => {
-
-          })
+          });
       }
     }
   };
 </script>
 
 <style lang="scss" scoped>
+  @import "../../assets/styles/variables";
+
   * {
     box-sizing: border-box;
     font-family: 'Roboto', sans-serif;
@@ -97,8 +96,11 @@
             margin: auto {
               top: 20px
             };
-            width: 180px;
+            width: 150px;
             display: block;
+            @media (min-width: map_get($grid-breakpoints, 'md')) {
+              width: 250px;
+            }
           }
 
           .welcome {
@@ -151,6 +153,17 @@
 
             &:hover {
               cursor: pointer;
+            }
+          }
+
+          .access {
+            margin-top: 10px;
+            text-align: center;
+            color: black;
+
+            a {
+              font-weight: bold;
+              color: black;
             }
           }
         }

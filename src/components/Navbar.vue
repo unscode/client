@@ -1,6 +1,8 @@
 <template>
   <nav class="navbar navbar-expand-lg fixed-top navbar-dark bg-dark">
-    <router-link class="navbar-brand" to="/">GiC</router-link>
+    <router-link class="navbar-brand" to="/">
+      <img class="brand" src="../assets/illustrations/brand2.svg" alt="Brand"/>
+    </router-link>
     <button class="navbar-toggler" type="button" data-toggle="collapse"
             data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02"
             aria-expanded="false" aria-label="Toggle navigation">
@@ -41,11 +43,15 @@
     left: 0;
     width: 100%;
     padding: {
-      top: 30px;
-      bottom: 30px;
+      top: 20px;
+      bottom: 20px;
     };
     background: black;
     position: fixed;
     z-index: 999;
+
+    .brand {
+      width: 70px;
+    }
   }
 </style>

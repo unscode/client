@@ -16,12 +16,14 @@
           </div>
           <div class="row">
             <div class="col-12 col-lg-6 col-xl-6 mt-4">
-              <div class="card">
-                <div class="card-body">
-                  <img class="alphabet" src="../assets/svg/education/001-alphabet.svg"/>
-                  Jogo(s)
+              <router-link class="navbar-brand" to="/game">
+                <div class="card">
+                  <div class="card-body">
+                    <img class="alphabet" src="../assets/svg/education/001-alphabet.svg"/>
+                    Jogo(s)
+                  </div>
                 </div>
-              </div>
+              </router-link>
             </div>
             <div class="col-12 col-lg-6 col-xl-6 mt-4">
               <div class="card">

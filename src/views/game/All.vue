@@ -2,7 +2,7 @@
   <div>
     <navbar/>
     <div class="container">
-      <h1 class="title mb-5">Meus jogos</h1>
+      <h1 class="title mb-5">Meus jogo(s)</h1>
       <List/>
     </div>
   </div>
