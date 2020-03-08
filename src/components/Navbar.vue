@@ -12,13 +12,13 @@
     <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
       <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
         <li class="nav-item active">
-          <router-link class="nav-link" to="/game">Game</router-link>
+          <router-link class="nav-link" to="/game">Jogo(s)</router-link>
+        </li>
+        <li class="nav-item active">
+          <router-link class="nav-link" to="/medal">Medalha(s)</router-link>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">Link</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link disabled" href="#">Disabled</a>
+          <router-link class="nav-link" to="/about">Sobre</router-link>
         </li>
       </ul>
     </div>

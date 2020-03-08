@@ -70,6 +70,10 @@ const routes = [
     path: '/login',
     name: 'Login',
     component: () => import('../views/auth/Login'),
+  },
+  {
+    path: '*',
+    component: () => import('../views/PageNotFound')
   }
 ];
 
