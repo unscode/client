@@ -15,8 +15,6 @@
 </template>
 
 <script>
-  import { Draggable } from '@shopify/draggable';
-
   export default {
     name: 'ScoreShow',
     props: {
@@ -33,14 +31,6 @@
       ScoreEdit: () => import('./Edit')
     },
     mounted() {
-      new Draggable(this.$refs.score, {
-        draggable: '.card',
-        mirror: {
-          constrainDimensions: true
-        }
-      })
-        .on('drag:start', () => console.log('drag:start'))
-        .on('drag:over', (e) => console.log(e));
     }
   };
 </script>
@@ -55,19 +45,4 @@
   @import "~bootstrap/scss/forms";
   @import "~bootstrap/scss/grid";
   @import "~bootstrap/scss/utilities/spacing";
-
-  .draggable-container--over,
-  .draggable--over {
-    background: yellow;
-  }
-
-  .draggable--original {
-    display: none !important;
-    cursor: pointer;
-  }
-
-  .draggable-mirror {
-    z-index: 99999;
-    box-shadow: 0 0 5px black;
-  }
 </style>

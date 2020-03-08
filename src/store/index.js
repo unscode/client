@@ -13,13 +13,17 @@ const vuexLocalStorage = new VuexPersist({
   // filter: mutation => (true)
 });
 
-export default new Vuex.Store({
-  state: {
+function initialState() {
+  return {
     isOffline: false,
     user: {},
     isAuthenticated: false,
     medals: []
-  },
+  };
+}
+
+export default new Vuex.Store({
+  state: initialState,
   getters: {
     findMedalsById: state => id => {
       return state.medals.find(medal => medal.id === id);
@@ -46,6 +50,14 @@ export default new Vuex.Store({
       }
     },
     // Games
+    reset(state) {
+      // acquire initial state
+      const s = initialState();
+      Object.keys(s)
+        .forEach(key => {
+          state[key] = s[key];
+        });
+    }
   },
   modules: {},
   plugins: [vuexLocalStorage.plugin],

@@ -28,6 +28,9 @@
         >
         </i>
         <b class="racking-in-expand" v-if="name">{{name}}</b>
+        <b class="logout" @click="logout">
+          <i class="gg-arrow-right-o"></i>
+        </b>
       </span>
     </span>
   </nav>
@@ -58,6 +61,13 @@
           .finally(() => {
             this.waiting = false;
           });
+      },
+      logout() {
+        if (this.$auth.isAuthenticated()) {
+          this.$auth.logout();
+        }
+        this.$store.commit('reset');
+        window.location.replace('/login');
       }
     },
     mounted() {
@@ -74,6 +84,7 @@
   @import "~bootstrap/scss/mixins";
   @import "~bootstrap/scss/navbar";
   @import "~css.gg/icons/boy.css";
+  @import "~css.gg/icons/arrow-right-o.css";
 
   .navbar {
     top: 0;
@@ -119,6 +130,16 @@
       .icon {
         margin-right: 10px;
         display: inline-block;
+      }
+    }
+
+    .logout {
+      color: red;
+      margin-left: 10px;
+      cursor: pointer;
+
+      &:hover {
+        transform: scale(1.1);
       }
     }
   }
