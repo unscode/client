@@ -57,6 +57,7 @@
             }
           })
           .catch((error) => {
+
           })
           .finally(() => {
             this.waiting = false;

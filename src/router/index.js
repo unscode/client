@@ -58,8 +58,14 @@ const routes = [
   {
     path: '/medal/:medal',
     name: 'medal.item',
-    component: () => import(/* webpackChunkName: "medal.all" */ '../views/medal/Item'),
+    component: () => import(/* webpackChunkName: "medal.item" */ '../views/medal/Item'),
     beforeEnter: multiguard([ifAuthenticated, canManage]),
+  },
+  {
+    path: '/player',
+    name: 'player.all',
+    component: () => import(/* webpackChunkName: "player.all" */ '../views/player/All'),
+    beforeEnter: ifAuthenticated
   },
   {
     path: '/about',
