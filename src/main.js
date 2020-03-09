@@ -2,6 +2,8 @@ import Vue from 'vue';
 import axios from 'axios';
 import VueAxios from 'vue-axios';
 import VueAuthenticate from 'vue-authenticate';
+import VueLodash from 'vue-lodash';
+import lodash from 'lodash';
 import { Snackbar, Toast } from 'buefy';
 import App from './App.vue';
 import './registerServiceWorker';
@@ -13,6 +15,7 @@ Vue.use(VueAxios, axios);
 Vue.use(Snackbar);
 Vue.use(Toast);
 Vue.use(VueAuthenticate, auth);
+Vue.use(VueLodash,  { name: 'custom' , lodash: lodash });
 Vue.config.productionTip = false;
 
 new Vue({

@@ -68,6 +68,12 @@ const routes = [
     beforeEnter: ifAuthenticated
   },
   {
+    path: '/player/:player/game/:game',
+    name: 'player.item.game.item',
+    component: () => import(/* webpackChunkName: "player.item.game.item" */ '../views/player/game/Item'),
+    beforeEnter: ifAuthenticated
+  },
+  {
     path: '/about',
     name: 'About',
     // route level code-splitting

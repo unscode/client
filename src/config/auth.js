@@ -23,6 +23,7 @@ export default {
    * @context {VueAuthenticate}
    */
   bindRequestInterceptor: function ($auth) {
+    console.log($auth.$http.interceptors);
     const tokenHeader = $auth.options.tokenHeader;
     $auth.$http.interceptors.request.use((config) => {
       // Gambiarra, hehehe ...
@@ -48,7 +49,8 @@ export default {
       return config;
     });
     // Response
-    this.$http.interceptors.response.use((response) => {
+    $auth.$http.interceptors.response.use((response) => {
+      console.log(response);
       if (response.status === 401) {
         console.log('unauthorized, logging out ...');
         window.location.replace('/login');

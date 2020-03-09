@@ -10,7 +10,7 @@
 </template>
 
 <script>
-  import { Draggable } from '@shopify/draggable';
+  //import { Draggable } from '@shopify/draggable';
 
   export default {
     name: 'PlayerList',
@@ -22,9 +22,9 @@
       }
     },
     mounted() {
-      new Draggable(this.$refs.players, {
+      /*new Draggable(this.$refs.players, {
         draggable: '.player'
-      });
+      });*/
     }
   };
 </script>
