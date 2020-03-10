@@ -18,6 +18,7 @@ function initialState() {
     isOffline: false,
     user: {},
     isAuthenticated: false,
+    games: [],
     medals: []
   };
 }
@@ -33,12 +34,17 @@ export default new Vuex.Store({
     isAuthenticated(state, payload) {
       state.isAuthenticated = payload;
     },
+    // User
     user(state, user) {
       state.user = user;
     },
+    // Games
+    games(state, games) {
+      state.games = games;
+    },
     // Medals
-    medals(state, payload) {
-      state.medals = payload;
+    medals(state, medals) {
+      state.medals = medals;
     },
     insertMedal(state, medal) {
       state.medals.splice(0, 0, medal);
@@ -49,7 +55,7 @@ export default new Vuex.Store({
         state.medals.splice(index, 1);
       }
     },
-    // Games
+    // Reset
     reset(state) {
       // acquire initial state
       const s = initialState();
